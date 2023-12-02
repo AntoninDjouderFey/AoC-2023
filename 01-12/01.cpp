@@ -32,6 +32,7 @@ char tochar(int i) {
 }
 
 std::string remplacement(std::string l) {
+    //on créer une copie pour modifier l'original, car il ne faudrait pas faire la comparaison après qu'on aie modifier
     std::string l2=l;
     for (int i = 0; i < chiffres.size(); i++) {
         //trouve la position du premier caractère de chiffre
