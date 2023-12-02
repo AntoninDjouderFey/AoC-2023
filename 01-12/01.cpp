@@ -4,6 +4,11 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+
+std::vector<std::string> chiffres={"one","two","three"
+    ,"four", "five", "six", "seven", "eigh", "nine"
+};
 
 /**
  * Loads data from a file.
@@ -21,6 +26,37 @@ std::vector<std::string> load(std::string fichier) {
     return data;
 }
 
+char tochar(int i) {
+    char c=i+48;
+    return c;
+}
+
+std::string remplacement(std::string l) {
+    std::string l2=l;
+    for (int i = 0; i < chiffres.size(); i++) {
+        //trouve la position du premier caractère de chiffre
+        size_t pos = l.find(chiffres.at(i));
+        while (pos != std::string::npos ) {
+            //il faut utiliser des ittérateurs pour fill
+            auto begin = l2.begin() + pos;
+            auto end = begin + chiffres.at(i).size();
+
+            // Utilisation de std::replace avec des itérateurs
+            std::fill(begin, end, tochar(i + 1));
+
+            // Trouver la prochaine occurrence de la sous-chaîne
+            pos = l.find(chiffres.at(i), pos + 1);
+        }
+    }
+    return l2;
+}
+
+std::vector<std::string> grand_remplacement(std::vector<std::string> data) {
+    for (auto& line : data) {
+            line=remplacement(line);
+    } return data;
+}
+
 /// @brief 
 /// @param l 
 /// @return 
@@ -31,7 +67,7 @@ int nbsecret(std::string l) {
         if (l.at(i)>='0' && l.at(i)<='9') {
             n+=(l.at(i)-'0')*10;
             break;
-        } 
+        }
     } //cherche le dernier chiffre et l'additionne
     for (int j=l.size()-1;j>=0;j--) {
         if (l.at(j)>='0' && l.at(j)<='9') {
@@ -55,6 +91,7 @@ int calibrage(std::vector<std::string> data) {
 
 int main() {
     std::vector<std::string> data = load("input.txt");
+    data=grand_remplacement(data);
     std::cout << calibrage(data) << std::endl;
     return 0;
 }
