@@ -113,17 +113,9 @@ int main() {
     std::vector<std::string> data=load(fichier);
     int S;
     S=sommeID(data);
-    std::cout<<S<<std::endl;
     std::vector<std::vector<int>> M=Conc(data);
     int Z=ProdFin(M);
     std::cout<<Z<<std::endl;
     return 0;
 }
-int main() {
-    std::string fichier="input2.txt";
-    std::vector<std::string> data=load(fichier);
-    int S;
-    S=sommeID(data);
-    std::cout<<S<<std::endl;
-    return 0;
-}
+
